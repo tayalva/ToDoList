@@ -160,7 +160,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
                 }
             
         }
-        
+        edit.backgroundColor = UIColor.orange
         return [delete, edit]
     }
     

@@ -150,6 +150,8 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
                     textField = field
 
                 }
+                
+            
                 self.present(alert, animated: true, completion: nil)
                 
                 
@@ -157,7 +159,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
 
             
         }
-
+        edit.backgroundColor = UIColor.orange
         return [delete, edit]
         
     }
