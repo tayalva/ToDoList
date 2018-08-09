@@ -44,6 +44,7 @@ class MainVC: UIViewController {
             itemList.append(addCategoryTextField.text!)
             tableView.reloadData()
         }
+        addCategoryTextField.text = ""
         
     }
     
