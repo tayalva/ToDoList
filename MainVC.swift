@@ -105,6 +105,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
+ ////// Swipe Delete
+        
         let delete = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
         
             if let category = self.categories?[indexPath.row]{
@@ -119,9 +121,47 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
                 
             }
         tableView.deleteRows(at: [indexPath], with: .fade)
-    }
-    
-    return [delete]
+            
+        }
+        
+/////// Swipe Edit
+        
+        let edit = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
+                
+                var textField = UITextField()
+                if let item = self.categories?[indexPath.row]{
+                    
+                    let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: .alert)
+                    
+                    let action = UIAlertAction(title: "Update", style: .default) { (action) in
+                        
+                        do {
+                            try self.realm.write {
+                                item.name = textField.text!
+                                self.tableView.reloadData()
+                                
+                            }
+                        } catch {
+                            print("update failed")
+                        }
+                        
+                    }
+                    
+                    alert.addAction(action)
+                    alert.addTextField { (field) in
+                        
+                        field.text = item.name
+                        textField = field
+                        
+                    }
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    
+                }
+            
+        }
+        
+        return [delete, edit]
     }
     
     

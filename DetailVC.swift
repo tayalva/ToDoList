@@ -122,7 +122,43 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
             
         }
         
-        return [delete]
+        let edit = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
+            
+            var textField = UITextField()
+            if let item = self.items?[indexPath.row]{
+                
+                let alert = UIAlertController(title: "Edit Item", message: "", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Update", style: .default) { (action) in
+                    
+                    do {
+                        try self.realm.write {
+                            item.title = textField.text!
+                            self.tableView.reloadData()
+                            
+                        }
+                    } catch {
+                        print("update failed")
+                    }
+                    
+                }
+                
+                alert.addAction(action)
+                alert.addTextField { (field) in
+                    
+                    field.text = item.title
+                    textField = field
+
+                }
+                self.present(alert, animated: true, completion: nil)
+                
+                
+            }
+
+            
+        }
+
+        return [delete, edit]
         
     }
     
