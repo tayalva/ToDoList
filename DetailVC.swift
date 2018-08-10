@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Alamofire
 
 class DetailVC: UIViewController {
     
@@ -44,7 +45,13 @@ class DetailVC: UIViewController {
                 try self.realm.write {
                     let newItem = Item()
                     newItem.title = addItemTextField.text!
+                    newItem.id = (items?.count)! + 1
+        
                     currentCategory.items.append(newItem)
+                    
+                   // let json: Parameters = ["name": newItem.title, "id": ]
+                    
+                    
                 }
             } catch {
                 print("error saving new items!")

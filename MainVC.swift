@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Alamofire
 
 class MainVC: UIViewController {
 
@@ -19,6 +20,7 @@ class MainVC: UIViewController {
     let realm = try! Realm()
     
     var categories: Results<Category>?
+    let networkManager = NetworkManager()
     
  
     
@@ -26,12 +28,20 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let endPoint = EndPoints.self
+        
+        print(endPoint.addItem)
+        
         loadCategories()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 100
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
+        
+        networkManager.getCategories()
+        
         
     }
     
@@ -51,7 +61,13 @@ class MainVC: UIViewController {
             
             let newCategory = Category()
             newCategory.name = addCategoryTextField.text!
+            newCategory.id = UUID().uuidString
             self.save(category: newCategory)
+            
+            let json: Parameters = ["name": newCategory.name]
+          
+            networkManager.post(params: json, endpoint: EndPoints.addCategory)
+            
             print(Realm.Configuration.defaultConfiguration.fileURL)
             
             tableView.reloadData()
@@ -71,6 +87,9 @@ class MainVC: UIViewController {
         } catch {
             print("error saving!")
         }
+        
+      
+        
 
     }
     
