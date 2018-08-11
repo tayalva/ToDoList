@@ -12,6 +12,7 @@ import Alamofire
 class NetworkManager {
     
     var catId = ""
+
     
     func getCategories(completion: @escaping ([CategoryCodable]?, Error?) -> Void) {
         
@@ -41,16 +42,38 @@ class NetworkManager {
                 self.catId = jsonString.filter {"01234567890".contains($0)}
                 
                 completion(self.catId, nil)
-       
                     
                 }
+  
+        }
+        
+    }
+    
+    func delete(params: Parameters, endpoint: EndPoints) {
+        
+        let url = "https://api.fusionofideas.com/todo/\(endpoint).php"
+        
+        Alamofire.request(url, method: .delete, parameters: params, encoding: URLEncoding.default).responseJSON { response in
             
+            print(response)
+        }
+        
+    }
+    
+    
+    func update(params: Parameters, endpoint: EndPoints) {
+        let url = "https://api.fusionofideas.com/todo/\(endpoint).php"
+        
+        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default).responseJSON { response in
             
-         
+            print(response)
+            
             
         }
         
     }
     
     
+    
+///////// END
 }

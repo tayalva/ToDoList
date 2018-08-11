@@ -18,6 +18,6 @@ enum EndPoints {
     case getCategories
     case addCategory
     case deleteCategory
-    case updatedCategory
+    case updateCategory
     
 }

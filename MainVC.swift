@@ -142,6 +142,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         let delete = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
         
             if let category = self.categories?[indexPath.row]{
+                let params = ["id": category.id]
+                self.networkManager.delete(params: params, endpoint: EndPoints.deleteCategory)
                 
                 do {
                     try self.realm.write {
@@ -166,6 +168,10 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
                     let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: .alert)
                     
                     let action = UIAlertAction(title: "Update", style: .default) { (action) in
+                        
+                        let params = ["id": item.id, "name": textField.text!]
+                        print(item.id)
+                        self.networkManager.update(params: params, endpoint: EndPoints.updateCategory)
                         
                         do {
                             try self.realm.write {
