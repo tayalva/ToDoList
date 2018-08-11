@@ -34,7 +34,7 @@ class NetworkManager {
         
         Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default).responseJSON { response in
     
-            print(response)
+           
             
             if let data = response.data, let jsonString = String(data: data, encoding: .utf8) {
                 

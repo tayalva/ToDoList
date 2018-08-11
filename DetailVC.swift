@@ -41,25 +41,44 @@ class DetailVC: UIViewController {
     @IBAction func addItemButton(_ sender: Any) {
         
         if let currentCategory = self.selectedCategory {
-            do {
-                try self.realm.write {
+            
+            
                     let newItem = Item()
                     newItem.name = addItemTextField.text!
-                   
+                    newItem.categoryId = selectedCategory?.id ?? "1"
                     print(currentCategory)
-                    currentCategory.items.append(newItem)
-                    
-                   // let json: Parameters = ["name": newItem.title, "id": ]
                     
                     
-                }
-            } catch {
-                print("error saving new items!")
-            }
+                    let json: Parameters = ["name": newItem.name, "description": "", "category_id": newItem.categoryId, "due":""]
+                    networkManager.post(params: json, endpoint: EndPoints.addItem) { (fetchedInfo, error) in
+                        
+                        if let itemID = fetchedInfo {
+                            
+                            OperationQueue.main.addOperation {
+                                
+                                do {
+                                    try self.realm.write {
+                                        newItem.id = itemID
+                                        currentCategory.items.append(newItem)
+                                        self.tableView.reloadData()
+                                    }
+                                } catch {
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                  
+                    }
+                    
+                    
+                
+            
      
         }
         
-        tableView.reloadData()
+    
     
     }
     

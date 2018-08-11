@@ -62,8 +62,6 @@ class MainVC: UIViewController {
             
             let newCategory = Category()
             newCategory.name = addCategoryTextField.text!
-            //newCategory.id = "123"
-            print("this is weird: \(newCategory.id)")
             let json: Parameters = ["name": newCategory.name]
             
        ///////////
@@ -71,10 +69,10 @@ class MainVC: UIViewController {
                 
                 
                 if let catID = catID {
-                    self.categoryID = catID
+                 
                     
                     OperationQueue.main.addOperation {
-                        print("it worked!: \(self.categoryID)")
+                   
                         
                         newCategory.id = catID
                         self.save(category: newCategory)
@@ -85,11 +83,7 @@ class MainVC: UIViewController {
             }
        ////////////
            
-           print(newCategory)
-            print("what the heck")
-            //self.save(category: newCategory)
-            
-           // tableView.reloadData()
+ 
         }
         addCategoryTextField.text = ""
         
