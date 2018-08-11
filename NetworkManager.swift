@@ -14,6 +14,8 @@ class NetworkManager {
     var catId = ""
 
     
+    ////// Not using this method. I have it here in case of wanting to return all Categories from API
+    
     func getCategories(completion: @escaping ([CategoryCodable]?, Error?) -> Void) {
         
         let url = "https://api.fusionofideas.com/todo/getCategories.php"
@@ -29,6 +31,9 @@ class NetworkManager {
             
         }
     }
+    
+    
+   /////// POST method
     
     func post(params: Parameters, endpoint: EndPoints, completion: @escaping (String?, Error?) -> Void) {
         let url = "https://api.fusionofideas.com/todo/\(endpoint).php"
@@ -48,7 +53,7 @@ class NetworkManager {
         }
         
     }
-    
+    ////// DELETE method
     func delete(params: Parameters, endpoint: EndPoints) {
         
         let url = "https://api.fusionofideas.com/todo/\(endpoint).php"
@@ -60,7 +65,7 @@ class NetworkManager {
         
     }
     
-    
+   ///// UPDATE method
     func update(params: Parameters, endpoint: EndPoints) {
         let url = "https://api.fusionofideas.com/todo/\(endpoint).php"
         
@@ -72,8 +77,5 @@ class NetworkManager {
         }
         
     }
-    
-    
-    
-///////// END
+
 }

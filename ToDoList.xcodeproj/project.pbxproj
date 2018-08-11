@@ -10,7 +10,6 @@
 		71491085215F3CCDD63EBB79 /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE3FCE4B75D9B8907AE281E /* Pods_ToDoList.framework */; };
 		A6598ABC211CABAE0022A0D4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6598ABB211CABAE0022A0D4 /* Category.swift */; };
 		A6598ABE211CABB70022A0D4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6598ABD211CABB70022A0D4 /* Item.swift */; };
-		A6598AC0211CECA90022A0D4 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6598ABF211CECA90022A0D4 /* DateFormatter.swift */; };
 		A6B5B806211CF16B00641D69 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B5B805211CF16B00641D69 /* NetworkManager.swift */; };
 		A6B5B808211CF3DC00641D69 /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B5B807211CF3DC00641D69 /* EndPoints.swift */; };
 		A6CEE62D211BA12E00A169B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CEE62C211BA12E00A169B6 /* AppDelegate.swift */; };
@@ -26,7 +25,6 @@
 		6DC6652FE7C8877028A85464 /* Pods-ToDoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoList/Pods-ToDoList.release.xcconfig"; sourceTree = "<group>"; };
 		A6598ABB211CABAE0022A0D4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		A6598ABD211CABB70022A0D4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		A6598ABF211CECA90022A0D4 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		A6B5B805211CF16B00641D69 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A6B5B807211CF3DC00641D69 /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		A6CEE629211BA12E00A169B6 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +63,6 @@
 			children = (
 				A6598ABB211CABAE0022A0D4 /* Category.swift */,
 				A6598ABD211CABB70022A0D4 /* Item.swift */,
-				A6598ABF211CECA90022A0D4 /* DateFormatter.swift */,
 			);
 			name = "Data Model";
 			path = ..;
@@ -249,7 +246,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6598AC0211CECA90022A0D4 /* DateFormatter.swift in Sources */,
 				A6598ABE211CABB70022A0D4 /* Item.swift in Sources */,
 				A6CEE62F211BA12E00A169B6 /* MainVC.swift in Sources */,
 				A6B5B806211CF16B00641D69 /* NetworkManager.swift in Sources */,

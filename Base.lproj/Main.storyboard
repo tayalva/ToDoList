@@ -44,7 +44,7 @@
                                     <action selector="addCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VHw-Do-8lh"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vh-42-4g0">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vh-42-4g0">
                                 <rect key="frame" x="0.0" y="88" width="375" height="79"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WK0-pH-4Mr">

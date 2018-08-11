@@ -30,15 +30,12 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let endPoint = EndPoints.self
-        
-        print(endPoint.addItem)
-        
         loadCategories()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 100
         
+// prints file path for realm browswer
         print(Realm.Configuration.defaultConfiguration.fileURL)
         
 
@@ -47,7 +44,6 @@ class MainVC: UIViewController {
     }
     
     @IBAction func addCategory(_ sender: Any) {
-        
         UIView.animate(withDuration: 0.2, animations: {
           self.newCategoryView.alpha = 1.0
         })
@@ -64,16 +60,13 @@ class MainVC: UIViewController {
             newCategory.name = addCategoryTextField.text!
             let json: Parameters = ["name": newCategory.name]
             
-       ///////////
+// Netowrk Request that not only POSTS, but receive back an ID that is saved by realm locally
+            
             networkManager.post(params: json, endpoint: EndPoints.addCategory) { (catID, error) in
                 
                 
                 if let catID = catID {
-                 
-                    
                     OperationQueue.main.addOperation {
-                   
-                        
                         newCategory.id = catID
                         self.save(category: newCategory)
                         self.tableView.reloadData()
@@ -81,18 +74,19 @@ class MainVC: UIViewController {
                 }
                 
             }
-       ////////////
            
  
         }
         addCategoryTextField.text = ""
         
+        
     }
+// Saves to REALM
     
     func save(category: Category) {
         
         do {
-            
+
             try realm.write {
                 realm.add(category)
             }
@@ -105,15 +99,18 @@ class MainVC: UIViewController {
         
 
     }
-    
+ 
+// Loads Tableview
     func loadCategories() {
         categories = realm.objects(Category.self)
         tableView.reloadData()
     }
     
-
+ 
 
 }
+
+// TABLEVIEW delegate methods
 
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
@@ -168,9 +165,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
                     let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: .alert)
                     
                     let action = UIAlertAction(title: "Update", style: .default) { (action) in
-                        
+                // Updates API
                         let params = ["id": item.id, "name": textField.text!]
-                        print(item.id)
                         self.networkManager.update(params: params, endpoint: EndPoints.updateCategory)
                         
                         do {
@@ -202,6 +198,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         return [delete, edit]
     }
     
+ //Prepares the segue with indexPath information
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! DetailVC

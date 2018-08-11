@@ -19,6 +19,10 @@ class DetailVC: UIViewController {
     let realm = try! Realm()
     var items: Results<Item>?
     let networkManager = NetworkManager()
+    
+    
+ // Selects correct category
+    
     var selectedCategory : Category? {
         didSet{
             loadItems()
@@ -30,6 +34,7 @@ class DetailVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+  // reorders items that are completed to be at the bottom
         items = items?.sorted(byKeyPath: "done", ascending: true)
     }
 
@@ -46,9 +51,10 @@ class DetailVC: UIViewController {
                     let newItem = Item()
                     newItem.name = addItemTextField.text!
                     newItem.categoryId = selectedCategory?.id ?? "1"
-                    print(currentCategory)
+        
                     
-                    
+        //Adds item to API and also returns an ID to be saved by REALM
+            
                     let json: Parameters = ["name": newItem.name, "description": "", "category_id": newItem.categoryId, "due":""]
                     networkManager.post(params: json, endpoint: EndPoints.addItem) { (fetchedInfo, error) in
                         
@@ -85,10 +91,10 @@ class DetailVC: UIViewController {
     
     
 
-} // end
+}
 
 
-// MARK: Table View Methods
+// Table View Helper Methods
 
 extension DetailVC: UITableViewDelegate, UITableViewDataSource {
     
@@ -129,12 +135,12 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
+  ///// SWIPE DELETE
         let delete = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
            
             if let item = self.items?[indexPath.row] {
-                
+              // Deletes from API
                 let params = ["id": item.id]
-                
                 self.networkManager.delete(params: params, endpoint: EndPoints.deleteItem)
                 
                 
@@ -153,7 +159,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
             
             
         }
-        
+      ///// SWIPE EDIT
         let edit = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
             
             var textField = UITextField()
@@ -162,9 +168,8 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
                 let alert = UIAlertController(title: "Edit Item", message: "", preferredStyle: .alert)
                 
                 let action = UIAlertAction(title: "Update", style: .default) { (action) in
-                    
+            // Edits to API
                     let params = ["id": item.id, "name": textField.text!, "description":"", "due": "", "completed": "\(item.done)"]
-                    
                     self.networkManager.update(params: params, endpoint: EndPoints.updateItem)
                     
                     do {

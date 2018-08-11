@@ -15,6 +15,7 @@ class Category: Object {
     let items = List<Item>()
 }
 
+// These structs below are here in case I wanted to download from the API (I currently save locally and then upload to API)
 
 struct CategoryResults: Codable {
     var content: [CategoryCodable]
