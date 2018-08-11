@@ -14,3 +14,14 @@ class Category: Object {
     @objc dynamic var id: String = ""
     let items = List<Item>()
 }
+
+
+struct CategoryResults: Codable {
+    var content: [CategoryCodable]
+}
+
+struct CategoryCodable: Codable {
+    
+    var name: String
+    var id: String
+}

@@ -11,34 +11,43 @@ import Alamofire
 
 class NetworkManager {
     
-    func getCategories() {
+    var catId = ""
+    
+    func getCategories(completion: @escaping ([CategoryCodable]?, Error?) -> Void) {
         
         let url = "https://api.fusionofideas.com/todo/getCategories.php"
         
         Alamofire.request(url).responseJSON { response in
             
-            if let json = response.result.value {
-                print("JSON: \(json)") // serialized json response
+                let decoder = JSONDecoder()
+            if let result = try? decoder.decode(CategoryResults.self, from: response.data!) {
+                   completion(result.content, nil)
+            } else {
+                print("not decoded")
             }
             
-            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                print("Data: \(utf8Text)") // original server data as UTF8 string
-            }
         }
     }
     
-    func post(params: Parameters, endpoint: EndPoints) {
-        let url = "https://api.fusionofideas.com/todo/addCategory.php"
-        let objects = ["name": "taylor's list"]
+    func post(params: Parameters, endpoint: EndPoints, completion: @escaping (String?, Error?) -> Void) {
+        let url = "https://api.fusionofideas.com/todo/\(endpoint).php"
         
-        Alamofire.request(url, method: .post, parameters: objects, encoding: JSONEncoding.default).responseJSON { response in
-            
-            
+        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default).responseJSON { response in
+    
             print(response)
             
-            print(url)
-            print("api updated!")
-            print(params)
+            if let data = response.data, let jsonString = String(data: data, encoding: .utf8) {
+                
+                self.catId = jsonString.filter {"01234567890".contains($0)}
+                
+                completion(self.catId, nil)
+       
+                    
+                }
+            
+            
+         
+            
         }
         
     }

@@ -20,11 +20,12 @@ class MainVC: UIViewController {
     let realm = try! Realm()
     
     var categories: Results<Category>?
+    var categoryID = ""
+    var catArray: [CategoryCodable] = []
     let networkManager = NetworkManager()
     
  
-    
-    var itemList = ["Grocery List", "Work", "Vacation"]
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,7 @@ class MainVC: UIViewController {
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
         
-        networkManager.getCategories()
+
         
         
     }
@@ -61,16 +62,34 @@ class MainVC: UIViewController {
             
             let newCategory = Category()
             newCategory.name = addCategoryTextField.text!
-            newCategory.id = UUID().uuidString
-            self.save(category: newCategory)
-            
+            //newCategory.id = "123"
+            print("this is weird: \(newCategory.id)")
             let json: Parameters = ["name": newCategory.name]
-          
-            networkManager.post(params: json, endpoint: EndPoints.addCategory)
             
-            print(Realm.Configuration.defaultConfiguration.fileURL)
+       ///////////
+            networkManager.post(params: json, endpoint: EndPoints.addCategory) { (catID, error) in
+                
+                
+                if let catID = catID {
+                    self.categoryID = catID
+                    
+                    OperationQueue.main.addOperation {
+                        print("it worked!: \(self.categoryID)")
+                        
+                        newCategory.id = catID
+                        self.save(category: newCategory)
+                        self.tableView.reloadData()
+                    }
+                }
+                
+            }
+       ////////////
+           
+           print(newCategory)
+            print("what the heck")
+            //self.save(category: newCategory)
             
-            tableView.reloadData()
+           // tableView.reloadData()
         }
         addCategoryTextField.text = ""
         

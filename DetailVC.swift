@@ -15,10 +15,10 @@ class DetailVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var addItemTextField: UITextField!
+    
     let realm = try! Realm()
-    
     var items: Results<Item>?
-    
+    let networkManager = NetworkManager()
     var selectedCategory : Category? {
         didSet{
             loadItems()
@@ -35,7 +35,7 @@ class DetailVC: UIViewController {
 
     
     func loadItems() {
-        items = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        items = selectedCategory?.items.sorted(byKeyPath: "name", ascending: true)
     }
     
     @IBAction func addItemButton(_ sender: Any) {
@@ -44,9 +44,9 @@ class DetailVC: UIViewController {
             do {
                 try self.realm.write {
                     let newItem = Item()
-                    newItem.title = addItemTextField.text!
-                    newItem.id = (items?.count)! + 1
-        
+                    newItem.name = addItemTextField.text!
+                   
+                    print(currentCategory)
                     currentCategory.items.append(newItem)
                     
                    // let json: Parameters = ["name": newItem.title, "id": ]
@@ -82,7 +82,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
         
         if let item = items?[indexPath.row] {
             
-            cell.textLabel?.text = item.title
+            cell.textLabel?.text = item.name
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Items Added"
@@ -140,7 +140,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
                     
                     do {
                         try self.realm.write {
-                            item.title = textField.text!
+                            item.name = textField.text!
                             self.tableView.reloadData()
                             
                         }
@@ -153,7 +153,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
                 alert.addAction(action)
                 alert.addTextField { (field) in
                     
-                    field.text = item.title
+                    field.text = item.name
                     textField = field
 
                 }
