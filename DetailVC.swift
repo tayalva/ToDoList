@@ -33,6 +33,7 @@ class DetailVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        addItemTextField.delegate = self
         
   // reorders items that are completed to be at the bottom
         items = items?.sorted(byKeyPath: "done", ascending: true)
@@ -51,6 +52,7 @@ class DetailVC: UIViewController {
                     let newItem = Item()
                     newItem.name = addItemTextField.text!
                     newItem.categoryId = selectedCategory?.id ?? "1"
+            addItemTextField.endEditing(true)
         
                     
         //Adds item to API and also returns an ID to be saved by REALM
@@ -206,3 +208,13 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
+extension DetailVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
+

@@ -97,7 +97,7 @@
                     <navigationItem key="navigationItem" id="Tp4-ne-Qs6"/>
                     <connections>
                         <outlet property="addCategoryButton" destination="xDN-9s-gND" id="ST4-wi-a0r"/>
-                        <outlet property="addCategoryTextField" destination="h2v-ry-gOt" id="2KP-Q4-q50"/>
+                        <outlet property="addCategoryTextField" destination="h2v-ry-gOt" id="U2T-zq-Lbo"/>
                         <outlet property="newCategoryView" destination="0vh-42-4g0" id="xhJ-uv-k0f"/>
                         <outlet property="tableView" destination="94s-bW-3pJ" id="Gme-pa-Xcn"/>
                         <segue destination="y7t-CJ-OYn" kind="show" identifier="detailViewSegue" id="4Hs-I9-Zdn"/>

@@ -16,6 +16,7 @@ class MainVC: UIViewController {
     @IBOutlet weak var newCategoryView: UIView!
     @IBOutlet weak var addCategoryButton: UIButton!
     @IBOutlet weak var addCategoryTextField: UITextField!
+  
     
     let realm = try! Realm()
     
@@ -34,6 +35,7 @@ class MainVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 100
+        addCategoryTextField.delegate = self
         
 // prints file path for realm browswer
         print(Realm.Configuration.defaultConfiguration.fileURL)
@@ -78,6 +80,7 @@ class MainVC: UIViewController {
  
         }
         addCategoryTextField.text = ""
+        addCategoryTextField.endEditing(true)
         
         
     }
@@ -209,4 +212,21 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
+extension MainVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
+
+
+
+
+
+
+
+
 
